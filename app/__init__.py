@@ -1,19 +1,32 @@
 import os
 from flask import Flask 
 from flask_bootstrap import Bootstrap
-from .config import DevConfig
+from .main import main as main_blueprint
+from .request import configure_request
+from .config import config_options
+from flask_sqlalchemy import SQLAlchemy
 
 # template_dir = os.path.abspath('../frontend/')
 # app = Flask(__name__, template_folder=template_dir)
 
-app = Flask(__name__, instance_relative_config= True)
+bootstrap = Bootstrap()
+db = SQLAlchemy()
 
-bootstrap = Bootstrap(app)
+def create_app(config_name):
 
-app.config.from_object(DevConfig)
-app.config.from_pyfile('config.py')
+    app = Flask(__name__)
 
-from app import views
+    # Creating the app configurations
+    app.config.from_object(config_options[config_name])
+    app.register_blueprint(main_blueprint)
 
+    # Initializing flask extensions
+    bootstrap.init_app(app)
+    db.init_app(app)
+    configure_request(app)
+
+    # Will add the views and forms
+
+    return app
 
 
