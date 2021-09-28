@@ -11,7 +11,7 @@ api = Api(apiv1, prefix='/api/v1')
 
 api.add_resource(RegisterResource, '/register')
 api.add_resource(LoginResource, '/login')
-api.add_resource(MoviesResource, '/movie')
+api.add_resource(MoviesResource, '/movies')
 api.add_resource(MovieResource, '/movie/<int:id>')
 # api.add_resource(LogoutResource, '/logout')
 
