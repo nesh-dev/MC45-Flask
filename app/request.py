@@ -2,7 +2,7 @@
 from os import path
 import pdb
 import urllib, json
-from .models.movie import Movie
+from app.api.v1.models.movie import Movie
 
 api_key = None
 base_url = None
